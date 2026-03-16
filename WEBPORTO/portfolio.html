@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Henry firstya - Portofolio 2025</title>
+
+  <!--
+    ============================================================
+    FONTS
+    ============================================================
+    We load two fonts from Google Fonts:
+    - "DM Serif Display" → used for large headings (serif, editorial feel)
+    - "DM Mono"          → used for labels, tags, monospaced accents
+    - "DM Sans"          → used for body text (clean, modern sans-serif)
+
+    You can swap these out with any Google Fonts URL.
+    Just change the family= parameter in the href below.
+    ============================================================
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES (variables)
+       ============================================================
+       Define your design tokens here — colors, fonts, sizes.
+       Using variables means you can change the whole site's look
+       by editing just this section. 
+       
+       Try changing --bg to "#0a0a0a" for a dark mode version!
+       ============================================================ */
+    :root {
+      --bg: #000000;           /* warm off-white background */
+      --fg: #ffffff;           /* near-black foreground text */
+      --accent: #3effb6;       /* burnt orange accent color */
+      --muted: #8a8070;        /* muted/secondary text color */
+      --border: #d9d3c9;       /* subtle border color */
+      --card-bg: #baffe5;      /* slightly darker card background */
+      --tag-bg: #e2dcd4;       /* tag/badge background */
+
+      --font-heading: "DM Serif Display", Georgia, serif;
+      --font-body:    "DM Sans", sans-serif;
+      --font-mono:    "DM Mono", "Courier New", monospace;
+
+      --max-width: 860px;      /* max content width — try 1100px for wider layout */
+      --gap: 2rem;             /* standard spacing unit */
+    }
+
+    /* ============================================================
+       CSS RESET
+       ============================================================
+       Browsers apply default styles (margins, paddings, font sizes).
+       A reset removes those defaults so we start from a clean slate.
+       
+       `box-sizing: border-box` means padding/border are INCLUDED
+       in an element's width — much easier to work with!
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ============================================================
+       BASE BODY STYLES
+       ============================================================
+       Set global font, color, background, and line-height here.
+       `line-height: 1.65` means lines are 1.65× the font size apart — 
+       good for readability.
+       ============================================================ */
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 1rem;          /* 1rem = 16px by default */
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased; /* smoother fonts on Mac/WebKit */
+    }
+
+    /* ============================================================
+       LAYOUT WRAPPER
+       ============================================================
+       `.site-wrapper` centers content and adds horizontal padding
+       so text doesn't touch screen edges on mobile.
+       
+       `max-width` + `margin: 0 auto` = centered layout trick.
+       ============================================================ */
+    .site-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;       /* horizontal padding on small screens */
+    }
+
+    /* ============================================================
+       UTILITY: SECTION DIVIDER
+       ============================================================
+       A horizontal line between sections.
+       `border: none` removes the default browser <hr> border,
+       then we add our own with `border-top`.
+       ============================================================ */
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* ============================================================
+       UTILITY: SECTION LABEL
+       ============================================================
+       Small uppercase label above section headings — like a category.
+       `letter-spacing` spreads characters out for a refined look.
+       ============================================================ */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* ============================================================
+       UTILITY: TAGS / BADGES
+       ============================================================
+       Small pill-shaped labels for skills and technologies.
+       
+       `display: inline-flex` lets us stack them horizontally
+       using flexbox but within normal text flow.
+       `border-radius: 2px` gives a slightly rectangular pill shape.
+       ============================================================ */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;      /* tags wrap to next line if they overflow */
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+    }
+    /* Accent tag variant — try applying class="tag tag--accent" to highlight a skill */
+    .tag--accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+
+    /* ============================================================
+       ── HEADER / HERO SECTION ──
+       ============================================================
+       The first thing visitors see. Uses CSS Grid for layout.
+       
+       `padding: 5rem 0 3rem` means:
+         - top: 5rem
+         - left/right: 0
+         - bottom: 3rem
+       ============================================================ */
+    header {
+      padding: 5rem 0 3rem;
+    }
+
+    /* 
+       Header top bar: "PORTFOLIO / 2025" label on the left,
+       social handle on the right. 
+       `justify-content: space-between` pushes children to opposite ends.
+    */
+    .header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* The availability dot — a small animated circle */
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #4caf50;     /* green = available */
+      border-radius: 50%;      /* 50% border-radius = circle */
+      margin-right: 0.4rem;
+      /* CSS animation — see @keyframes pulse below */
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* 
+       @keyframes define an animation sequence.
+       `pulse` fades opacity from 1 → 0.3 → 1 repeatedly.
+       Try changing `2s` to `0.5s` to make it faster!
+    */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* Large hero name */
+    .hero-name {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 8vw, 6rem);  /* clamp(min, preferred, max) — responsive font size! */
+      line-height: 1.05;
+      letter-spacing: -0.02em;            /* tighten large headings slightly */
+      margin-bottom: 0.5rem;
+    }
+
+    /* Italic accent in the name */
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* Subtitle row below name */
+    .hero-sub {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-role {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .hero-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+    }
+
+    /* Focus skills strip below the hero */
+    .focus-strip {
+      margin-top: 2rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+
+    /* ============================================================
+       ── ABOUT SECTION ──
+       ============================================================ */
+    .about-section {
+      padding: 2rem 0;
+    }
+
+    /* Two-column grid: label on left, content on right */
+    .about-grid {
+      display: grid;
+      /* 
+         `grid-template-columns: 140px 1fr` means:
+         - first column: exactly 140px wide
+         - second column: takes up remaining space (`1fr` = 1 fraction)
+         Try changing 140px to 200px to widen the label column.
+      */
+      grid-template-columns: 140px 1fr;
+      gap: var(--gap);
+    }
+
+    .about-label {
+      padding-top: 0.2rem;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--fg);
+    }
+
+    /* List of focus areas */
+    .focus-list {
+      list-style: none;          /* remove default bullet points */
+      margin-top: 1.25rem;
+    }
+    .focus-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    /* Arrow marker before each list item — using ::before pseudo-element */
+    .focus-list li::before {
+      content: "→";             /* you could change this to "•", "✦", or any character */
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    /* Strengths pills */
+    .strengths {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .strength-pill {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;     /* large radius = fully rounded pill */
+      letter-spacing: 0.05em;
+    }
+
+
+    /* ============================================================
+       ── SECTION HEADINGS ──
+       ============================================================ */
+    .section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+
+    /* ============================================================
+       ── EXPERIENCE SECTION ──
+       ============================================================ */
+    .experience-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: var(--gap);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    /* Remove border from last item */
+    .experience-item:last-child {
+      border-bottom: none;
+    }
+
+    .exp-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .exp-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      margin-bottom: 0.25rem;
+    }
+    .exp-org {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .exp-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+
+    /* ============================================================
+       ── PROJECTS GRID ──
+       ============================================================
+       A 2-column card grid. On small screens it collapses to 1 column.
+       ============================================================ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);  /* 2 equal columns */
+      gap: 1px;                               /* 1px gap = thin border effect */
+      background: var(--border);              /* background shows through the gap = border trick */
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 1.75rem;
+      /* 
+         CSS transition: smooth hover state change.
+         `background 0.2s ease` = background color changes over 0.2 seconds.
+      */
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      background: var(--card-bg);
+    }
+
+    .project-year {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+    .project-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+
+    /* ============================================================
+       ── BLOG / THOUGHTS SECTION ──
+       ============================================================ */
+    .thoughts-list {
+      display: flex;
+      flex-direction: column;     /* stacks items vertically */
+    }
+
+    .thought-item {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;   /* date | title | read time */
+      align-items: center;
+      gap: var(--gap);
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;              /* links inherit text color */
+      transition: color 0.15s ease;
+    }
+    .thought-item:hover {
+      color: var(--accent);
+    }
+    .thought-item:last-child {
+      border-bottom: none;
+    }
+
+    .thought-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .thought-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .thought-time {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      white-space: nowrap;    /* prevent "5 min" from wrapping */
+    }
+
+
+    /* ============================================================
+       ── CERTIFICATIONS SECTION ──
+       ============================================================ */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .cert-card {
+      background: var(--bg);
+      padding: 1.5rem;
+      transition: background 0.2s ease;
+    }
+    .cert-card:hover {
+      background: var(--card-bg);
+    }
+
+    .cert-issuer {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .cert-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .cert-meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .cert-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .cert-link:hover {
+      text-decoration: underline;
+    }
+    /* Arrow icon using CSS — no image needed! */
+    .cert-link::after {
+      content: "↗";
+    }
+
+
+    /* ============================================================
+       ── CONTACT / FOOTER SECTION ──
+       ============================================================ */
+    footer {
+      padding: 4rem 0 3rem;
+    }
+
+    .contact-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .contact-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .email-link {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+    .email-link:hover {
+      color: var(--accent);
+    }
+
+    /* Social links row */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .social-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      transition: color 0.15s ease;
+    }
+    .social-link:hover {
+      color: var(--fg);
+    }
+    .social-platform {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .social-handle {
+      color: inherit;
+    }
+
+    /* Bottom copyright bar */
+    .footer-bar {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+
+    /* ============================================================
+       RESPONSIVE DESIGN (Media Queries)
+       ============================================================
+       `@media (max-width: 640px)` = styles only applied when screen
+       is 640px wide or less (mobile).
+       
+       Here we collapse 2-column layouts to single column.
+       ============================================================ */
+    @media (max-width: 640px) {
+      /* Collapse about grid to single column */
+      .about-grid,
+      .experience-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      /* Stack thoughts row */
+      .thought-item {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+      }
+      .thought-time {
+        display: none;           /* hide read time on mobile to save space */
+      }
+
+      /* Make project grid single column */
+      .projects-grid,
+      .certs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Adjust header meta on small screens */
+      .header-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+
+
+    /* ============================================================
+       PAGE LOAD ANIMATION
+       ============================================================
+       Sections fade in and slide up on load using CSS animation.
+       
+       `animation-fill-mode: both` = element starts in the `from` state
+       even before animation begins (so it doesn't flash).
+       ============================================================ */
+    .fade-in {
+      opacity: 0;               /* start invisible */
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    /* 
+       Staggered delays — each section fades in slightly after the previous.
+       This creates a cascading reveal effect.
+    */
+    .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .fade-in:nth-child(2) { animation-delay: 0.15s; }
+    .fade-in:nth-child(3) { animation-delay: 0.25s; }
+    .fade-in:nth-child(4) { animation-delay: 0.35s; }
+    .fade-in:nth-child(5) { animation-delay: 0.45s; }
+    .fade-in:nth-child(6) { animation-delay: 0.55s; }
+    .fade-in:nth-child(7) { animation-delay: 0.65s; }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);    /* start 18px below final position */
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);       /* end at normal position */
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!--
+    ================================================================
+    SITE WRAPPER
+    ================================================================
+    All content lives inside this div.
+    It centers content and limits width to --max-width (860px).
+    ================================================================
+  -->
+  <div class="site-wrapper">
+
+    <!-- ============================================================
+         HEADER / HERO
+         ============================================================
+         First section visitors see. Contains:
+         - Top meta bar (portfolio label + social handle)
+         - Big name heading
+         - Role / nationality sub-info
+         - Availability status
+         - Focus skills strip
+         ============================================================ -->
+    <header class="fade-in">
+
+      <!-- Top bar: label left, handle right -->
+      <div class="header-meta">
+        <span>PORTFOLIO / 2027</span>
+        <span>@hanif_abdusy</span>
+      </div>
+
+      <!-- 
+        Hero name: uses <em> for italic/accent styling.
+        The CSS rule `.hero-name em` colors it with --accent.
+        Try changing "Hanif" to be italic and "Abdusy Syakur" normal.
+      -->
+      <h1 class="hero-name">
+        Henry<br />
+        <em>Firstya</em><br />
+        D Kencana
+      </h1>
+
+      <!-- Sub-info row -->
+      <div class="hero-sub">
+        <!-- Status dot + availability text -->
+        <span>
+          <span class="status-dot"></span>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);">
+            unavailable for collaboration
+          </span>
+        </span>
+
+        <!-- Vertical divider line (decorative) -->
+        <div class="hero-divider"></div>
+
+        <!-- Role -->
+        <span class="hero-role">CURRENTLY: AI engineer enthusiast</span>
+
+        <div class="hero-divider"></div>
+
+        <!-- Nationality -->
+        <span class="hero-role">Indonesian</span>
+      </div>
+
+      <!-- 
+        Focus skills shown as tags.
+        These use the `.tag` class defined in CSS.
+        Add more by copy-pasting a <span class="tag"> element.
+      -->
+      <div class="focus-strip">
+        <span class="tag">Python</span>
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Express</span>
+        <span class="tag">Node.js</span>
+      </div>
+
+    </header>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         ABOUT SECTION
+         ============================================================
+         Two-column grid: label (left) + content (right).
+         
+         Experiment: change grid-template-columns in .about-grid
+         to "200px 1fr" to make the label column wider.
+         ============================================================ -->
+    <section class="about-section fade-in" aria-label="About Me">
+
+      <p class="section-label">About Me</p>
+
+      <div class="about-grid">
+        <!-- Left column: decorative year label -->
+        <div class="about-label">
+          <span class="section-label">2025 — Present</span>
+        </div>
+
+        <!-- Right column: bio text + focus areas + strengths -->
+        <div>
+          <p class="about-text">
+            Currently developing skills in backend integration and exploring 
+            AI-enhanced features to create more intelligent and user-focused 
+            web applications. Highly motivated to learn, collaborate, and 
+            contribute in real-world development environments.
+          </p>
+
+          <!-- Focus areas list -->
+          <p class="section-label" style="margin-top: 1.5rem;">FOCUS AREAS</p>
+          <ul class="focus-list">
+            <!-- 
+              Each <li> gets an "→" arrow via CSS ::before pseudo-element.
+              You can add more items by adding more <li> tags here.
+            -->
+            <li>Backend Integration</li>
+            <li>AI-Enhanced Features</li>
+            <li>User-Focused Applications</li>
+          </ul>
+
+          <!-- Strengths pills -->
+          <p class="section-label" style="margin-top: 1.5rem;">STRENGTHS</p>
+          <div class="strengths">
+            <!-- 
+              `.strength-pill` has a transparent background with an accent border.
+              Try changing to class="tag" for a different look.
+            -->
+            <span class="strength-pill">Team Work</span>
+            <span class="strength-pill">Time Management</span>
+            <span class="strength-pill">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         EXPERIENCE SECTION
+         ============================================================
+         Each `.experience-item` is a 2-column grid row.
+         ============================================================ -->
+    <section class="fade-in" aria-label="Experience">
+
+      <p class="section-label">Experience</p>
+      <h2 class="section-heading">Work &amp; Programs</h2>
+
+      <!-- Experience item 1 -->
+      <div class="experience-item">
+        <div class="exp-date">2025 – present</div>
+        <div>
+          <h3 class="exp-title">Dicoding Asah Program</h3>
+          <!-- 
+            `&amp;` is the HTML entity for "&".
+            Always use HTML entities for special characters in HTML.
+            Other common ones: &lt; = <, &gt; = >, &nbsp; = non-breaking space
+          -->
+          <p class="exp-org">Asah led by Dicoding &amp; Accenture</p>
+          <p class="exp-desc">
+            Participating in the Asah Program 2025 by Dicoding Indonesia and Accenture.
+            Chose the React &amp; Back-End with AI learning path. 
+            The program runs for six months.
+          </p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Hapi JS</span>
+            <span class="tag">Express</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         PROJECTS SECTION
+         ============================================================
+         A CSS Grid with 2 columns of cards.
+         
+         The `background: var(--border)` + `gap: 1px` trick:
+         The grid background shows through the 1px gaps between cards,
+         creating thin border lines between them — no actual borders needed!
+         ============================================================ -->
+    <section class="fade-in" aria-label="Projects">
+
+      <p class="section-label">Projects</p>
+      <h2 class="section-heading">Selected Works</h2>
+
+      <div class="projects-grid">
+
+        <!-- 
+          PROJECT CARD
+          Each card has: year label, title, description, tech tags.
+          Add a new project by copy-pasting a .project-card div.
+        -->
+        <div class="project-card">
+          <p class="project-year">2025</p>
+          <h3 class="project-title">AI Learning Insight</h3>
+          <p class="project-desc">
+            A full-featured e-commerce platform with product management, 
+            shopping cart, and payment integration. Built with modern 
+            technologies for optimal performance.
+          </p>
+          <div class="tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Stripe</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-year">2024</p>
+          <h3 class="project-title">Notes App</h3>
+          <p class="project-desc">
+            Collaborative task management application with real-time updates, 
+            drag-and-drop interface, and team collaboration features.
+          </p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Socket.io</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-year">2024</p>
+          <h3 class="project-title">Weather Dashboard</h3>
+          <p class="project-desc">
+            Interactive weather dashboard displaying current conditions, 
+            forecasts, and weather maps with data visualization.
+          </p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Chart.js</span>
+            <span class="tag">OpenWeather API</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-year">2025</p>
+          <h3 class="project-title">Portfolio Website</h3>
+          <p class="project-desc">
+            Personal portfolio website with animated backgrounds, 
+            dark mode support, and responsive design.
+          </p>
+          <div class="tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Three.js</span>
+            <span class="tag">Tailwind CSS</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         RECENT THOUGHTS (BLOG) SECTION
+         ============================================================
+         A list of blog post links using anchor tags (<a>).
+         
+         `<a href="#">` = a link going nowhere (placeholder).
+         Replace # with the actual URL when you have one.
+         ============================================================ -->
+    <section class="fade-in" aria-label="Blog posts">
+
+      <p class="section-label">Recent Thoughts</p>
+      <h2 class="section-heading">Writing</h2>
+
+      <div class="thoughts-list">
+
+        <!-- 
+          Each thought is a <a> (link) styled as a row.
+          The CSS grid: date | title | read-time
+          Try adding more rows by copy-pasting one of these <a> blocks.
+        -->
+        <a href="#" class="thought-item">
+          <span class="thought-date">Dec 2024</span>
+          <span class="thought-title">The Future of Web Development</span>
+          <span class="thought-time">5 min read</span>
+        </a>
+
+        <a href="#" class="thought-item">
+          <span class="thought-date">Nov 2024</span>
+          <span class="thought-title">Design Systems at Scale</span>
+          <span class="thought-time">8 min read</span>
+        </a>
+
+        <a href="#" class="thought-item">
+          <span class="thought-date">Oct 2024</span>
+          <span class="thought-title">Performance-First Development</span>
+          <span class="thought-time">6 min read</span>
+        </a>
+
+        <a href="#" class="thought-item">
+          <span class="thought-date">Sep 2024</span>
+          <span class="thought-title">The Art of Code Review</span>
+          <span class="thought-time">4 min read</span>
+        </a>
+
+      </div>
+
+    </section>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         CERTIFICATIONS SECTION
+         ============================================================
+         Same 2-column card grid trick as projects.
+         
+         The `aria-label` attributes improve accessibility — 
+         screen readers announce these to visually impaired users.
+         ============================================================ -->
+    <section class="fade-in" aria-label="Certifications">
+
+      <p class="section-label">Certifications</p>
+      <h2 class="section-heading">Professional Development</h2>
+
+      <div class="certs-grid">
+
+        <!-- 
+          CERTIFICATION CARD
+          Structure: issuer label → cert name → date + ID → tags → view link
+          
+          To add a new cert: copy-paste one of these .cert-card divs
+          and update the text content.
+        -->
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Dasar Pemrograman Web</h3>
+          <p class="cert-meta">Aug 2025 · ID: RVZKG6K6OXD5</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+          <!-- 
+            The ↗ arrow is added by CSS ::after on `.cert-link`
+            so we don't need to write it in HTML — the CSS handles it.
+          -->
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Dasar Pemrograman JavaScript</h3>
+          <p class="cert-meta">Jul 2025 · ID: N9ZO2DJRRPG5</p>
+          <div class="tags">
+            <span class="tag">JavaScript</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Membuat Front-End Web untuk Pemula</h3>
+          <p class="cert-meta">Sep 2025 · ID: 1RXYQ603QZVM</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Membuat Aplikasi Web dengan React</h3>
+          <p class="cert-meta">Sep 2025 · ID: MEPJ2J5OLP3V</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">React</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Fundamental Aplikasi Web dengan React</h3>
+          <p class="cert-meta">Oct 2025 · ID: EYX4KVO26PDL</p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Menjadi React Developer Expert</h3>
+          <p class="cert-meta">Nov 2025 · ID: REACT-EXPERT-2025</p>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Redux</span>
+            <span class="tag">Testing</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Back-End Pemula dengan JavaScript</h3>
+          <p class="cert-meta">Nov 2025 · ID: JLX15V4W5Z72</p>
+          <div class="tags">
+            <span class="tag">Hapi.js</span>
+            <span class="tag">Postman</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+        <div class="cert-card">
+          <p class="cert-issuer">Dicoding Indonesia</p>
+          <h3 class="cert-name">Belajar Fundamental Back-End</h3>
+          <p class="cert-meta">Dec 2025 · ID: BACKEND-FUND-2025</p>
+          <div class="tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">API</span>
+            <span class="tag">Database</span>
+          </div>
+          <a href="#" class="cert-link" style="margin-top: 0.75rem; display: inline-flex;">View credential</a>
+        </div>
+
+      </div>
+
+    </section>
+
+    <hr class="divider fade-in" />
+
+
+    <!-- ============================================================
+         CONTACT / FOOTER
+         ============================================================
+         Big CTA heading + email link + social links grid + copyright bar.
+         ============================================================ -->
+    <footer class="fade-in" aria-label="Contact">
+
+      <p class="section-label">Let's Connect</p>
+
+      <!-- 
+        Large closing heading — uses clamp() for responsive sizing.
+        clamp(min, preferred, max) auto-scales between breakpoints.
+      -->
+      <h2 class="contact-heading">
+        Always interested in new<br />
+        <em style="font-style: italic; color: var(--accent);">opportunities.</em>
+      </h2>
+
+      <p class="contact-sub">
+        Always interested in new opportunities, collaborations, and 
+        conversations about technology.
+      </p>
+
+      <!-- 
+        Email as a clickable mailto: link.
+        `mailto:email@example.com` opens the user's email app.
+      -->
+      <a href="mailto:hanifabdusy914s@gmail.com" class="email-link">
+        hanifabdusy914s@gmail.com
+      </a>
+
+      <!-- Social links -->
+      <div class="social-links">
+
+        <!-- 
+          Each social link has a platform label and handle.
+          The `.social-platform` is the small all-caps label.
+          The `.social-handle` is the actual username.
+          
+          Replace href="#" with the real URL, e.g. href="https://github.com/hnf71z"
+        -->
+        <a href="https://github.com/hnf71z" class="social-link" target="_blank" rel="noopener">
+          <span class="social-platform">GitHub</span>
+          <span class="social-handle">@hnf71z</span>
+        </a>
+
+        <a href="#" class="social-link">
+          <span class="social-platform">Discord</span>
+          <span class="social-handle">@hanif_abdusy</span>
+        </a>
+
+        <a href="#" class="social-link">
+          <span class="social-platform">Instagram</span>
+          <span class="social-handle">@hanif_abdusy</span>
+        </a>
+
+        <a href="#" class="social-link">
+          <span class="social-platform">LinkedIn</span>
+          <span class="social-handle">hanif-abdusy</span>
+        </a>
+
+      </div>
+
+      <!-- Footer bottom bar -->
+      <div class="footer-bar">
+        <span>© 2025 Hanif Abdusy Syakur</span>
+        <span>Frontend Developer · Indonesia</span>
+      </div>
+
+    </footer>
+
+  </div><!-- end .site-wrapper -->
+
+  <!--
+    ================================================================
+    JAVASCRIPT — SCROLL ANIMATION
+    ================================================================
+    This script makes sections animate in as you scroll down,
+    rather than all at once on page load.
+    
+    It uses the Intersection Observer API — a modern browser feature
+    that fires a callback when an element enters/exits the viewport.
+    
+    HOW IT WORKS:
+    1. We select all elements with class "scroll-reveal"
+    2. Create an IntersectionObserver that watches them
+    3. When an element becomes visible (intersecting), 
+       we add the class "visible" which triggers its CSS animation
+    4. Once visible, we stop observing it (no need to watch anymore)
+    
+    To use this on any element, just add class="scroll-reveal" to it.
+    Currently the fade-in class handles the initial load; 
+    this script handles sections revealed as you scroll.
+    ================================================================
+  -->
+  <script>
+    // Select all elements we want to animate on scroll
+    // document.querySelectorAll returns a NodeList (like an array)
+    const revealElements = document.querySelectorAll('.fade-in');
+
+    // Create the observer
+    // The callback fires whenever an observed element's visibility changes
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Element is now visible — let CSS animation run
+            // (the animation is already set up; we just remove the override)
+            entry.target.style.animationPlayState = 'running';
+            // Stop watching this element — it's already revealed
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        // `threshold: 0.1` = trigger when 10% of element is visible
+        // Try 0 (any pixel visible) or 0.5 (half visible)
+        threshold: 0.1,
+        // `rootMargin: "0px 0px -50px 0px"` = trigger 50px before bottom of viewport
+        // This makes elements animate in slightly before they're fully in view
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    // Tell the observer to watch each element
+    revealElements.forEach((el) => {
+      // Pause animation initially; observer will resume it when visible
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
